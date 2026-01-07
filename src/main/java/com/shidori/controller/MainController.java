@@ -37,10 +37,12 @@ public class MainController {
 		  Users data=userservice.SaveUser(user);
 		  
 		  return ApiResponse.success(HttpStatus.CREATED,
+				  					true,
 				  					"Data stored Successfully");
 		}catch (Exception e) {
 			// TODO: handle exception
 			return ApiResponse.error(HttpStatus.BAD_REQUEST,
+									false,
 									e.getMessage());
 		}
 	  }
