@@ -20,7 +20,7 @@ public class UserAddress {
     // 🔗 Many addresses → one user
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private Users user;
 
     @Column(nullable = false, length = 100)
     private String name; // Home, Office
@@ -59,11 +59,11 @@ public class UserAddress {
 		this.id = id;
 	}
 
-	public User getUser() {
+	public Users getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Users user) {
 		this.user = user;
 	}
 

@@ -1,20 +1,20 @@
 package com.shidori.model;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+
 
 @Entity
 @Table(
     name = "users",
     indexes = {
         @Index(name = "idx_phone", columnList = "phone"),
-        @Index(name = "idx_email", columnList = "email"),
-        @Index(name = "idx_is_subscriber", columnList = "is_subscriber")
+        @Index(name = "idx_email", columnList = "email")
     }
 )
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,35 +38,37 @@ public class User {
     @Column(nullable = false)
     private Status status = Status.active;
 
-    @Column(name = "is_subscriber", nullable = false)
-    private Boolean isSubscriber = false;
+    @Column(name = "has_updated_password", nullable = false)
+    private boolean hasUpdatedPassword = false;
 
-    @Column(name = "created_at", updatable = false)
+    @Column(name = "is_first_login", nullable = false)
+    private boolean isFirstLogin = true;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-
-    // 🔗 One user → many addresses
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserAddress> addresses;
 
     @PrePersist
     protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
+        this.createdAt = now;
+        this.updatedAt = now;
     }
 
     @PreUpdate
     protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
-
-    // Enum for status
+    
     public enum Status {
         active, inactive, deleted
     }
 
+  //Here the setter and getter
+    
+    
 	public Long getId() {
 		return id;
 	}
@@ -123,12 +125,20 @@ public class User {
 		this.status = status;
 	}
 
-	public Boolean getIsSubscriber() {
-		return isSubscriber;
+	public boolean isHasUpdatedPassword() {
+		return hasUpdatedPassword;
 	}
 
-	public void setIsSubscriber(Boolean isSubscriber) {
-		this.isSubscriber = isSubscriber;
+	public void setHasUpdatedPassword(boolean hasUpdatedPassword) {
+		this.hasUpdatedPassword = hasUpdatedPassword;
+	}
+
+	public boolean isFirstLogin() {
+		return isFirstLogin;
+	}
+
+	public void setFirstLogin(boolean isFirstLogin) {
+		this.isFirstLogin = isFirstLogin;
 	}
 
 	public LocalDateTime getCreatedAt() {
@@ -146,14 +156,10 @@ public class User {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
-	public List<UserAddress> getAddresses() {
-		return addresses;
-	}
-
-	public void setAddresses(List<UserAddress> addresses) {
-		this.addresses = addresses;
-	}
+	
+    
+    
+    
 
    
 }
