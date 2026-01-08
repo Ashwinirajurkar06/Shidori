@@ -6,40 +6,32 @@ import com.shidori.model.Users;
 
 public class ApiResponse<T> {
 
-	private HttpStatus status;
-	private Boolean success;
+	private int status;
+    private boolean success;
     private String message;
-    private T data;
+    private Object data;
 
-    // Constructors
-    public ApiResponse(HttpStatus status,boolean success, String message, T data) {
+    public ApiResponse(int status, boolean success, String message, Object data) {
         this.status = status;
-        this.success=success;
+        this.success = success;
         this.message = message;
         this.data = data;
     }
-    
- // Static helper methods for success and error responses
-    public static <T> ApiResponse<T> success(HttpStatus status,boolean success, String message, T data) {
-        return new ApiResponse<>(status,success, message, data);
-    }
 
-    public static <T> ApiResponse<T> success(HttpStatus status ,boolean success, String message) {
-        return new ApiResponse<>(status,success, message, null);
-    }
-    public static <T> ApiResponse<T> error(HttpStatus status ,boolean success, String message) {
-        return new ApiResponse<>(status,success, message, null);
-    }
-    public static <T> ApiResponse<T> error(HttpStatus status ,boolean success, String message, T data) {
-        return new ApiResponse<>(status,success, message, data);
-    }
-
-	public HttpStatus getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(HttpStatus status) {
+	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public boolean isSuccess() {
+		return success;
+	}
+
+	public void setSuccess(boolean success) {
+		this.success = success;
 	}
 
 	public String getMessage() {
@@ -50,15 +42,15 @@ public class ApiResponse<T> {
 		this.message = message;
 	}
 
-	public T getData() {
+	public Object getData() {
 		return data;
 	}
 
-	public void setData(T data) {
+	public void setData(Object data) {
 		this.data = data;
 	}
 
-	
+
     
     
 }

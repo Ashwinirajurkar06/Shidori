@@ -8,4 +8,8 @@ import com.shidori.model.Users;
 @Repository
 public interface UserRepo extends JpaRepository<Users, Long> {
 
+    boolean existsByEmail(String email);
+
+    boolean existsByPhone(String phone);
+
 }
